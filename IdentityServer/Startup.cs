@@ -1,20 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using IdentityServer.Config;
-using IdentityServer.Data;
-using IdentityServer.Models;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+
+using System;
+using System.Linq;
+using System.Reflection;
 
 namespace IdentityServer
 {
@@ -33,6 +27,30 @@ namespace IdentityServer
             services.AddControllers();
             string migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
             string connectionString = Configuration.GetConnectionString("MysqlConnection");
+            var builder = services.AddIdentityServer(options =>
+            {
+                options.Events.RaiseErrorEvents = true;
+                options.Events.RaiseInformationEvents = true;
+                options.Events.RaiseFailureEvents = true;
+                options.Events.RaiseSuccessEvents = true;
+            })
+             .AddTestUsers(InMemoryConfig.Users().ToList())
+             .AddInMemoryApiResources(InMemoryConfig.GetApiResources())
+             .AddInMemoryClients(InMemoryConfig.GetClients());
+
+
+            builder.AddDeveloperSigningCredential();
+
+            if (Environment.IsDevelopment())
+            {
+                builder.AddDeveloperSigningCredential();
+            }
+            else
+            {
+                throw new Exception("need to configure key material");
+            }
+
+            services.AddAuthentication();//配置认证服务
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -45,7 +63,7 @@ namespace IdentityServer
 
             app.UseRouting();
 
-            //app.UseIdentityServer();
+            app.UseIdentityServer();
             app.UseAuthorization();
             app.UseAuthentication();
 
