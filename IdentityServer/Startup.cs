@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 
 namespace IdentityServer
 {
@@ -25,32 +26,41 @@ namespace IdentityServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            string migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
-            string connectionString = Configuration.GetConnectionString("MysqlConnection");
-            var builder = services.AddIdentityServer(options =>
-            {
-                options.Events.RaiseErrorEvents = true;
-                options.Events.RaiseInformationEvents = true;
-                options.Events.RaiseFailureEvents = true;
-                options.Events.RaiseSuccessEvents = true;
-            })
-             .AddTestUsers(InMemoryConfig.Users().ToList())
-             .AddInMemoryApiResources(InMemoryConfig.GetApiResources())
-             .AddInMemoryClients(InMemoryConfig.GetClients());
+            services.AddIdentityServer()
+                //.AddInMemoryClients(Configuration.GetSection("IdentityServer:Clients"))//appsettings.json文件定义静态客户端
+                .AddInMemoryApiResources(InMemoryConfig.GetApiResources())
+                .AddInMemoryClients(InMemoryConfig.GetClients())
+                .AddInMemoryIdentityResources(InMemoryConfig.GetIdentityResources())
+                .AddDeveloperSigningCredential()
+                .AddTestUsers(InMemoryConfig.Users().ToList());
 
 
-            builder.AddDeveloperSigningCredential();
+            //services.AddAuthentication("MyCookie")
+            //    .AddCookie("MyCookie", options =>
+            //    {
+            //        options.ExpireTimeSpan = TimeSpan.Zero;
+            //    });//Cookie验证
 
-            if (Environment.IsDevelopment())
-            {
-                builder.AddDeveloperSigningCredential();
-            }
-            else
-            {
-                throw new Exception("need to configure key material");
-            }
+            //services.AddAuthentication()
+            //     .AddGoogle("Google", options =>
+            //     {
+            //         options.SignInScheme = "scheme of cookie handler to use";
 
-            services.AddAuthentication();//配置认证服务
+            //         options.ClientId = "...";
+            //         options.ClientSecret = "...";
+            //     });//谷歌支持,Microsoft.AspNetCore.Authentication.Google
+
+            //services.AddAuthentication()
+            //        .AddCookie("YourCustomScheme")
+            //        .AddGoogle("Google", options =>
+            //        {
+            //            options.SignInScheme = "YourCustomScheme";
+
+            //            options.ClientId = "...";
+            //            options.ClientSecret = "...";
+            //        });//自定义
+            //services.AddAuthentication();
+
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -64,9 +74,11 @@ namespace IdentityServer
             app.UseRouting();
 
             app.UseIdentityServer();
-            app.UseAuthorization();
-            app.UseAuthentication();
-
+            //app.UseAuthorization();
+            //app.UseAuthentication();UseIdentityServer包含对的调用UseAuthentication，因此没有必要同时使用两者。
+            // AddAuthentication将身份验证服务添加到DI并配置Bearer为默认方案。
+            // UseAuthentication 将身份验证中间件添加到管道中，以便对主机的每次调用都将自动执行身份验证。
+            // UseAuthorization 添加了授权中间件，以确保匿名客户端无法访问我们的API端点。
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
