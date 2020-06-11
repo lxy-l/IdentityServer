@@ -35,6 +35,13 @@ namespace WebApi
                 options.RequireHttpsMetadata = false;
                 options.Audience = "API";
             });
+       //     services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+       //.AddIdentityServerAuthentication("Bearer", options =>
+       //{
+       //    options.Authority = "http://localhost:5000";
+       //    options.RequireHttpsMetadata = false;
+       //    options.ApiName = "API";
+       //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

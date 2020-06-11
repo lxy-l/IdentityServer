@@ -44,7 +44,7 @@ namespace IdentityServer.Config
                 AllowedGrantTypes = GrantTypes.Code,
                 RequireConsent = false,
                 RequirePkce = true,
-                RedirectUris = { "http://localhost:5002" },
+                RedirectUris = { "http://localhost:5002/signin-oidc" },
                 PostLogoutRedirectUris = { "http://localhost:5002" },
                 AllowedScopes = new List<string>
                 {
@@ -107,7 +107,7 @@ namespace IdentityServer.Config
             //混合模式With OpenID & OAuth
              new Client
              {
-                    ClientId = "Hybrid Flow",
+                    ClientId = "HybridFlow",
                     ClientName = "Hybrid Flow Client",
                     AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
 
@@ -116,8 +116,8 @@ namespace IdentityServer.Config
                         new Secret("secret".Sha256())
                     },
 
-                    RedirectUris = { "http://localhost:5021/signin-oidc" },
-                    PostLogoutRedirectUris = { "http://localhost:5021" },
+                    RedirectUris = { "http://localhost:5002/signin-oidc" },
+                    PostLogoutRedirectUris = { "http://localhost:5002" },
 
                     AllowedScopes =
                     {

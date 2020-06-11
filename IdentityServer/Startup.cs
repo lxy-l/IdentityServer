@@ -24,7 +24,7 @@ namespace IdentityServer
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddControllers();
-            services.AddMvc();
+            services.AddControllersWithViews();
             services.AddIdentityServer()
                 //.AddInMemoryClients(Configuration.GetSection("IdentityServer:Clients"))//appsettings.json文件定义静态客户端
                 .AddInMemoryApiResources(IdentityServerConfig.ApiResources)
