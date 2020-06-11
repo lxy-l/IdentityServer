@@ -18,23 +18,11 @@ namespace IdentityServer.Config
             new ApiResource("API", "My API 1")
         };
 
-        public static IEnumerable<IdentityResource> IdentityResources =>
-            new List<IdentityResource>
-            {
-                new IdentityResources.OpenId(),
-                new IdentityResources.Profile()
-            };
-
-        //public static IEnumerable<ApiScope> GetApiScopes()
-        //{
-        //    return new List<ApiScope>
-        //    {
-        //        new ApiScope(name: "read",   displayName: "Read your data."),
-        //        new ApiScope(name: "write",  displayName: "Write your data."),
-        //        new ApiScope(name: "delete", displayName: "Delete your data.")
-        //    };
-        //}
-
+        public static IEnumerable<IdentityResource> IdentityResources =>new List<IdentityResource>
+        {
+            new IdentityResources.OpenId(),
+            new IdentityResources.Profile()
+        };
         public static IEnumerable<Client> Clients => new[]
         {
             // 客户端模式
@@ -157,7 +145,7 @@ namespace IdentityServer.Config
                     Password = "123",
                     Claims = new List<Claim>
                     {
-                        new Claim("Name", "Lxy"),
+                        new Claim("Name", "LLL"),
                         new Claim("Role", "User")
                     }
                 }
