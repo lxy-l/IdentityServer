@@ -6,10 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using System;
 using System.Linq;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
 
 namespace IdentityServer
 {
@@ -23,6 +20,7 @@ namespace IdentityServer
 
         public IConfiguration Configuration { get; }
         public IWebHostEnvironment Environment { get; }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -33,7 +31,6 @@ namespace IdentityServer
                 .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
                 .AddDeveloperSigningCredential()
                 .AddTestUsers(IdentityServerConfig.Users.ToList());
-
 
             //services.AddAuthentication("Cookies")
             //    .AddCookie("Cookies", options =>
@@ -60,8 +57,8 @@ namespace IdentityServer
             //            options.ClientSecret = "...";
             //        });//×Ô¶¨Òå
             services.AddAuthentication();
-
         }
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -83,6 +80,6 @@ namespace IdentityServer
             {
                 endpoints.MapControllers();
             });
-        } 
+        }
     }
 }

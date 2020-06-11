@@ -1,5 +1,4 @@
-﻿
-using IdentityServer4;
+﻿using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
 
@@ -14,17 +13,18 @@ namespace IdentityServer.Config
     /// </summary>
     public static class IdentityServerConfig
     {
-        public static IEnumerable<ApiResource> ApiResources=> new[]
+        public static IEnumerable<ApiResource> ApiResources => new[]
         {
             new ApiResource("API", "My API 1")
         };
-        public static IEnumerable<IdentityResource> IdentityResources=>
+
+        public static IEnumerable<IdentityResource> IdentityResources =>
             new List<IdentityResource>
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile()
             };
-        
+
         //public static IEnumerable<ApiScope> GetApiScopes()
         //{
         //    return new List<ApiScope>
@@ -48,7 +48,7 @@ namespace IdentityServer.Config
                     },
                     AllowedScopes = { "API" }
             },
-            //
+            //授权码模式
             new Client
             {
                 ClientId = "mvc",
@@ -79,6 +79,66 @@ namespace IdentityServer.Config
                 },
                 AllowedScopes = { "API" }
             },
+            //简化模式 With OpenID
+            new Client
+            {
+                    ClientId = "Implicit",
+                    ClientName = "Implicit Client",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+
+                    RedirectUris = { "http://localhost:5002/signin-oidc" },
+                    PostLogoutRedirectUris = { "http://localhost:5002" },
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile
+                    }
+             },
+            //简化模式 With OpenID & OAuth
+            new Client
+            {
+                    ClientId = "js",
+                    ClientName = "JavaScript Client",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris = { "http://localhost:5002/callback.html" },
+                    PostLogoutRedirectUris = { "http://localhost:5002/index.html" },
+                    AllowedCorsOrigins = { "http://localhost:5002" },
+
+                    RequireConsent = false, //禁用 consent 页面确认 https://github.com/IdentityServer/IdentityServer3/issues/863
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "API"
+                    }
+            },
+            //混合模式With OpenID & OAuth
+             new Client
+             {
+                    ClientId = "Hybrid Flow",
+                    ClientName = "Hybrid Flow Client",
+                    AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
+
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    },
+
+                    RedirectUris = { "http://localhost:5021/signin-oidc" },
+                    PostLogoutRedirectUris = { "http://localhost:5021" },
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "API"
+                    },
+                    AllowOfflineAccess = true
+             }
         };
 
         // 指定可以使用 Authorization Server 授权的 Users（用户）
