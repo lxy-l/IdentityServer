@@ -28,15 +28,15 @@ namespace IdentityServer
             services.AddControllers();
             services.AddIdentityServer()
                 //.AddInMemoryClients(Configuration.GetSection("IdentityServer:Clients"))//appsettings.json文件定义静态客户端
-                .AddInMemoryApiResources(InMemoryConfig.GetApiResources())
-                .AddInMemoryClients(InMemoryConfig.GetClients())
-                .AddInMemoryIdentityResources(InMemoryConfig.GetIdentityResources())
+                .AddInMemoryApiResources(IdentityServerConfig.ApiResources)
+                .AddInMemoryClients(IdentityServerConfig.Clients)
+                .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
                 .AddDeveloperSigningCredential()
-                .AddTestUsers(InMemoryConfig.Users().ToList());
+                .AddTestUsers(IdentityServerConfig.Users.ToList());
 
 
-            //services.AddAuthentication("MyCookie")
-            //    .AddCookie("MyCookie", options =>
+            //services.AddAuthentication("Cookies")
+            //    .AddCookie("Cookies", options =>
             //    {
             //        options.ExpireTimeSpan = TimeSpan.Zero;
             //    });//Cookie验证
@@ -59,7 +59,7 @@ namespace IdentityServer
             //            options.ClientId = "...";
             //            options.ClientSecret = "...";
             //        });//自定义
-            //services.AddAuthentication();
+            services.AddAuthentication();
 
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
