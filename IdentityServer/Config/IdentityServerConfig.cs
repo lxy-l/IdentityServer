@@ -21,7 +21,9 @@ namespace IdentityServer.Config
         public static IEnumerable<IdentityResource> IdentityResources =>new List<IdentityResource>
         {
             new IdentityResources.OpenId(),
-            new IdentityResources.Profile()
+            new IdentityResources.Profile(),
+            new IdentityResources.Email(),
+            new IdentityResource("roles","角色",new List<string>{"role"})
         };
         public static IEnumerable<Client> Clients => new[]
         {
@@ -45,11 +47,12 @@ namespace IdentityServer.Config
                 RequireConsent = false,
                 RequirePkce = true,
                 RedirectUris = { "http://localhost:5002/signin-oidc" },
-                PostLogoutRedirectUris = { "http://localhost:5002" },
+                PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
                 AllowedScopes = new List<string>
                 {
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile,
+                    IdentityServerConstants.StandardScopes.Email,
                     "API"
                 },
 
@@ -115,14 +118,15 @@ namespace IdentityServer.Config
                     {
                         new Secret("secret".Sha256())
                     },
-
                     RedirectUris = { "http://localhost:5002/signin-oidc" },
-                    PostLogoutRedirectUris = { "http://localhost:5002" },
+                    PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
 
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "roles",
                         "API"
                     },
                     AllowOfflineAccess = true
@@ -136,7 +140,14 @@ namespace IdentityServer.Config
             {
                 SubjectId = "1",
                 Username = "admin",
-                Password = "admin"
+                Password = "admin",
+                Claims = new List<Claim>
+                {
+                        new Claim("given_name", "admin"),
+                        new Claim("family_name", "admin"),
+                        new Claim("email","1234234524356@qq.com"),
+                        new Claim("role","管理员")
+                }
             },
             new TestUser
                 {
@@ -145,8 +156,10 @@ namespace IdentityServer.Config
                     Password = "123",
                     Claims = new List<Claim>
                     {
-                        new Claim("Name", "LLL"),
-                        new Claim("Role", "User")
+                        new Claim("given_name", "LLL"),
+                        new Claim("family_name", "User"),
+                        new Claim("email","962921291@qq.com"),
+                        new Claim("role","普通用户")
                     }
                 }
         };

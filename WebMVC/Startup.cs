@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
-
+using IdentityModel;
 using IdentityServer4.AccessTokenValidation;
-
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,14 +27,17 @@ namespace WebMVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            //JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = "Cookies";
                 options.DefaultChallengeScheme = "oidc";
             })
-                .AddCookie("Cookies")
+                .AddCookie("Cookies",options=> {
+                    options.AccessDeniedPath = "/Authroization/AccessDenied";
+                })
                 .AddOpenIdConnect("oidc", options =>
                 {
                     options.SignInScheme = "Cookies";
@@ -45,7 +48,27 @@ namespace WebMVC
                     options.ResponseType = "code id_token";
                     options.Scope.Clear();
                     options.Scope.Add("openid");
+                    options.Scope.Add("profile");
+                    options.Scope.Add("email");
+                    options.Scope.Add("roles");
+
+                    //从过滤集合移除
+                    options.ClaimActions.Remove("nbf");
+                    options.ClaimActions.Remove("amr");
+
+                    //删除某些Claims
+                    options.ClaimActions.DeleteClaim("sid");
+                    options.ClaimActions.DeleteClaim("idp");
+
+
                     options.SaveTokens = true;
+                    options.GetClaimsFromUserInfoEndpoint = true;
+                    options.ClaimActions.MapUniqueJsonKey("role", "role");
+                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        NameClaimType = JwtClaimTypes.GivenName,
+                        RoleClaimType = JwtClaimTypes.Role
+                    };
                 });
         }
 

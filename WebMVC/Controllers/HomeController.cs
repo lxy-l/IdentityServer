@@ -30,10 +30,22 @@ namespace WebMVC.Controllers
             return View();
         }
 
+        public async Task Logout()
+        {
+            await HttpContext.SignOutAsync("Cookies");
+            await HttpContext.SignOutAsync("oidc");
+        }
+        [Authorize(Roles ="管理员")]
         public IActionResult Privacy()
         {
             return View();
         }
+
+        public IActionResult AccessDenied(string returnUrl)
+        {
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
