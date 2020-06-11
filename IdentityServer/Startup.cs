@@ -23,7 +23,8 @@ namespace IdentityServer
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            //services.AddControllers();
+            services.AddMvc();
             services.AddIdentityServer()
                 //.AddInMemoryClients(Configuration.GetSection("IdentityServer:Clients"))//appsettings.json文件定义静态客户端
                 .AddInMemoryApiResources(IdentityServerConfig.ApiResources)
@@ -71,14 +72,18 @@ namespace IdentityServer
             app.UseRouting();
 
             app.UseIdentityServer();
-            //app.UseAuthorization();
+            app.UseAuthorization();
             //app.UseAuthentication();UseIdentityServer包含对的调用UseAuthentication，因此没有必要同时使用两者。
             // AddAuthentication将身份验证服务添加到DI并配置Bearer为默认方案。
             // UseAuthentication 将身份验证中间件添加到管道中，以便对主机的每次调用都将自动执行身份验证。
             // UseAuthorization 添加了授权中间件，以确保匿名客户端无法访问我们的API端点。
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //});
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute();
             });
         }
     }
