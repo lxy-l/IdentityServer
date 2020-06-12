@@ -15,7 +15,8 @@ namespace IdentityServer.Config
     {
         public static IEnumerable<ApiResource> ApiResources => new[]
         {
-            new ApiResource("API", "My API 1")
+            new ApiResource("API", "My API 1"),
+            new ApiResource("WEBAPI", "RESTful API")
         };
 
         public static IEnumerable<IdentityResource> IdentityResources =>new List<IdentityResource>
@@ -108,7 +109,7 @@ namespace IdentityServer.Config
                     }
             },
             //混合模式With OpenID & OAuth
-             new Client
+            new Client
              {
                     ClientId = "HybridFlow",
                     ClientName = "Hybrid Flow Client",
@@ -130,7 +131,15 @@ namespace IdentityServer.Config
                         "API"
                     },
                     AllowOfflineAccess = true
-             }
+             },
+            //密码模式
+            new Client
+            {
+                ClientId="WebAPI",
+                ClientSecrets=new[]{ new Secret("secret".Sha256())},
+                AllowedGrantTypes=GrantTypes.ResourceOwnerPasswordAndClientCredentials,
+                AllowedScopes=new[]{ "WEBAPI"}
+            }
         };
 
         // 指定可以使用 Authorization Server 授权的 Users（用户）

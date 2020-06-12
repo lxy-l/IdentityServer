@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:WebApi.Controllers.AccountController">
+            <summary>
+            用户
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.AccountController.AcessToken">
+            <summary>
+            获取token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WebApi.Controllers.IdentityController">
+            <summary>
+            权限
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.IdentityController.Get">
+            <summary>
+            获取权限
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WebApi.Controllers.WeatherForecastController">
+            <summary>
+            天气
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.WeatherForecastController.Get">
+            <summary>
+            获取天气
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

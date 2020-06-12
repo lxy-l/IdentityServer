@@ -5,10 +5,17 @@ using System.Linq;
 
 namespace WebApi.Controllers
 {
+    /// <summary>
+    /// 权限
+    /// </summary>
     [Route("[controller]")]
     [Authorize]
     public class IdentityController : ControllerBase
     {
+        /// <summary>
+        /// 获取权限
+        /// </summary>
+        /// <returns></returns>
         [HttpGet()]
         public IActionResult Get()
         {
