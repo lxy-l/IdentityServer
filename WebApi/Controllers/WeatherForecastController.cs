@@ -37,6 +37,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(401)]
         public IEnumerable<WeatherForecast> Get()
         {
+            var user = User.Claims;
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

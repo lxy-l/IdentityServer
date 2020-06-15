@@ -6,6 +6,19 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <p>
+        @using Microsoft.AspNetCore.Authentication
+        <div>
+            <strong>id_token</strong>
+            <span>@await ViewContext.HttpContext.GetTokenAsync("id_token")</span>
+        </div>
+        <div>
+            <strong>access_token</strong>
+            <span>@await ViewContext.HttpContext.GetTokenAsync("access_token")</span>
+        </div>
+        <div>
+            <strong>refresh_token</strong>
+            <span>@await ViewContext.HttpContext.GetTokenAsync("refresh_token")</span>
+        </div>
         <dl>
             <dt>@ViewBag.token</dt>
         </dl>

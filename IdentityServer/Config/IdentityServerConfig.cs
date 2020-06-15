@@ -17,6 +17,9 @@ namespace IdentityServer.Config
         {
             new ApiResource("API", "My API 1"),
             new ApiResource("WEBAPI", "RESTful API")
+            {
+                    UserClaims = new [] { "email" }
+            }
         };
 
         public static IEnumerable<IdentityResource> IdentityResources =>new List<IdentityResource>
@@ -128,9 +131,10 @@ namespace IdentityServer.Config
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Email,
                         "roles",
-                        "API"
+                        "WEBAPI"
                     },
-                    AllowOfflineAccess = true
+                    AllowOfflineAccess = true,
+                    AllowAccessTokensViaBrowser=true
              },
             //密码模式
             new Client

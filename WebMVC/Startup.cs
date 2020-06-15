@@ -45,8 +45,10 @@ namespace WebMVC
                     options.RequireHttpsMetadata = false;
                     options.ClientId = "HybridFlow";
                     options.ClientSecret = "secret";
-                    options.ResponseType = "code id_token";
+                    options.ResponseType = "id_token code";
                     options.Scope.Clear();
+                    options.Scope.Add("WEBAPI");
+                    options.Scope.Add("offline_access");
                     options.Scope.Add("openid");
                     options.Scope.Add("profile");
                     options.Scope.Add("email");
@@ -59,7 +61,6 @@ namespace WebMVC
                     //É¾³ýÄ³Ð©Claims
                     options.ClaimActions.DeleteClaim("sid");
                     options.ClaimActions.DeleteClaim("idp");
-
 
                     options.SaveTokens = true;
                     options.GetClaimsFromUserInfoEndpoint = true;
