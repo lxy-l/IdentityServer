@@ -2,11 +2,13 @@ using IdentityServer.Config;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using System.Linq;
+using System.Reflection;
 
 namespace IdentityServer
 {
@@ -23,6 +25,8 @@ namespace IdentityServer
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+            string connectstring = Configuration.GetConnectionString("DefaultConnection");
             //services.AddControllers();
             services.AddControllersWithViews();
             services.AddIdentityServer()
@@ -31,7 +35,15 @@ namespace IdentityServer
                 .AddInMemoryClients(IdentityServerConfig.Clients)
                 .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
                 .AddDeveloperSigningCredential()
-                .AddTestUsers(IdentityServerConfig.Users.ToList());
+                .AddTestUsers(IdentityServerConfig.Users.ToList())
+                .AddConfigurationStore(options=> 
+                {
+                    options.ConfigureDbContext = b => b.UseMySql(connectstring, sql => sql.MigrationsAssembly(migrationsAssembly));
+                })
+                .AddOperationalStore(options=> 
+                {
+                    options.ConfigureDbContext = b => b.UseMySql(connectstring, sql => sql.MigrationsAssembly(migrationsAssembly));
+                });
 
             //services.AddAuthentication("Cookies")
             //    .AddCookie("Cookies", options =>
