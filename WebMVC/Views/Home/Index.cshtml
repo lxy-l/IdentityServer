@@ -8,25 +8,24 @@
     <p>
         @using Microsoft.AspNetCore.Authentication
         <div>
-            <strong>id_token</strong>
+            <strong>id_token:</strong>
             <span>@await ViewContext.HttpContext.GetTokenAsync("id_token")</span>
         </div>
+        <hr />
         <div>
-            <strong>access_token</strong>
+            <strong>access_token:</strong>
             <span>@await ViewContext.HttpContext.GetTokenAsync("access_token")</span>
         </div>
+        <hr />
         <div>
             <strong>refresh_token</strong>
             <span>@await ViewContext.HttpContext.GetTokenAsync("refresh_token")</span>
         </div>
-        <dl>
-            <dt>@ViewBag.token</dt>
-        </dl>
+        <hr />
         <dl>
             @foreach (var item in User.Claims)
             {
-                <dt>@item.Type</dt>
-                <dt>@item.Value</dt>
+            <dt>@item.Type:@item.Value</dt>
             }
         </dl>
     </p>

@@ -15,13 +15,23 @@ namespace IdentityServer.Config
     {
         public static IEnumerable<ApiResource> ApiResources => new[]
         {
+            new ApiResource("api1","asdfga"),
             new ApiResource("API", "My API 1"),
             new ApiResource("WEBAPI", "RESTful API")
             {
                     UserClaims = new [] { "email" }
             }
         };
-
+        public static IEnumerable<ApiScope> ApiScopes =>
+           new List<ApiScope>
+           {
+                new ApiScope("api1", "My API"),
+                new ApiScope("API", "My API 1"),
+                new ApiScope("WEBAPI", "RESTful API")
+                {
+                        UserClaims = new [] { "email" }
+                }
+           };
         public static IEnumerable<IdentityResource> IdentityResources =>new List<IdentityResource>
         {
             new IdentityResources.OpenId(),
@@ -32,15 +42,21 @@ namespace IdentityServer.Config
         public static IEnumerable<Client> Clients => new[]
         {
             // 客户端模式
-            new Client
+           new Client
             {
-                    ClientId = "client",
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientSecrets =
-                    {
-                        new Secret("secret".Sha256())
-                    },
-                    AllowedScopes = { "API" }
+                ClientId = "client",
+
+                // no interactive user, use the clientid/secret for authentication
+                AllowedGrantTypes = GrantTypes.ClientCredentials,
+
+                // secret for authentication
+                ClientSecrets =
+                {
+                    new Secret("secret".Sha256())
+                },
+
+                // scopes that client has access to
+                AllowedScopes = { "API" }
             },
             //授权码模式
             new Client
@@ -54,13 +70,15 @@ namespace IdentityServer.Config
                 PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
                 AllowedScopes = new List<string>
                 {
-                    IdentityServerConstants.StandardScopes.OpenId,
-                    IdentityServerConstants.StandardScopes.Profile,
-                    IdentityServerConstants.StandardScopes.Email,
-                    "API"
+                   IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "roles",
+                        "API"
                 },
 
-                AllowOfflineAccess = true
+                AllowOfflineAccess = true,
+                AllowAccessTokensViaBrowser=true
             },
             //密码模式
             new Client
@@ -112,30 +130,27 @@ namespace IdentityServer.Config
                     }
             },
             //混合模式With OpenID & OAuth
-            new Client
-             {
-                    ClientId = "HybridFlow",
-                    ClientName = "Hybrid Flow Client",
-                    AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
-
-                    ClientSecrets =
-                    {
-                        new Secret("secret".Sha256())
-                    },
-                    RedirectUris = { "http://localhost:5002/signin-oidc" },
-                    PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
-
-                    AllowedScopes =
-                    {
-                        IdentityServerConstants.StandardScopes.OpenId,
+           new Client
+            {
+                ClientId = "HybridFlow",
+                ClientSecrets = { new Secret("secret".Sha256()) },
+                AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
+                RequireConsent = false,
+                RequirePkce = true,
+                RedirectUris = { "http://localhost:5002/signin-oidc" },
+                PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
+                AllowedScopes = new List<string>
+                {
+                   IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Email,
                         "roles",
-                        "WEBAPI"
-                    },
-                    AllowOfflineAccess = true,
-                    AllowAccessTokensViaBrowser=true
-             },
+                        "API"
+                },
+
+                AllowOfflineAccess = true,
+                AllowAccessTokensViaBrowser=true
+            },
             //密码模式
             new Client
             {

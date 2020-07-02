@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
+using IdentityServer4.AccessTokenValidation;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 using Swashbuckle.AspNetCore.Filters;
@@ -34,21 +37,27 @@ namespace WebApi
             services.AddControllers().AddNewtonsoftJson(options => { options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss"; });
 
             #region Authentication
-            //IdentityModelEventSource.ShowPII = true;
-            services.AddAuthentication("Bearer")
-            .AddJwtBearer("Bearer", options =>
+            IdentityModelEventSource.ShowPII = true;
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                    .AddJwtBearer(IdentityServerAuthenticationDefaults.AuthenticationScheme, options =>
+                    {
+                        options.Authority = "http://localhost:5000";
+                        options.RequireHttpsMetadata = false;
+                        options.Audience = "API";
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateAudience = false
+                        };
+                    });
+            services.AddAuthorization(options =>
             {
-                options.Authority = "http://localhost:5000";
-                options.RequireHttpsMetadata = false;
-                options.Audience = "WEBAPI";
+                options.AddPolicy("ApiScope", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireClaim("scope", "API");
+                });
             });
-            //     services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-            //.AddIdentityServerAuthentication("Bearer", options =>
-            //{
-            //    options.Authority = "http://localhost:5000";
-            //    options.RequireHttpsMetadata = false;
-            //    options.ApiName = "API";
-            //});
+
             #endregion
 
             #region Swagger
@@ -94,7 +103,7 @@ namespace WebApi
                 options.AddPolicy("MyPolicy",
                     builder =>
                     {
-                        builder.WithOrigins("http://192.168.1.188", "http://localhost:5000")
+                        builder.WithOrigins("http://localhost:5000")
                                .AllowAnyHeader()
                                .WithMethods("GET", "POST", "PUT", "DELETE");
                     });
@@ -128,7 +137,7 @@ namespace WebApi
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers().RequireAuthorization("ApiScope"); ;
             });
         }
     }

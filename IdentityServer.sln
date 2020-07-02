@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{D62F1212-56BC-4F5F-98BA-45769F2B6E22}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{4EEF7B84-0B4F-4927-9EC1-94CAE98D00AA}"
-	ProjectSection(ProjectDependencies) = postProject
-		{D62F1212-56BC-4F5F-98BA-45769F2B6E22} = {D62F1212-56BC-4F5F-98BA-45769F2B6E22}
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{EB2992BD-6223-43C5-9F67-B8F01961131E}"
 	ProjectSection(SolutionItems) = preProject
@@ -20,9 +17,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResourceOwnerPassword_Test", "ResourceOwnerPassword_Test\ResourceOwnerPassword_Test.csproj", "{09DC303F-D795-4250-80F6-AD1B66F3A417}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMVC", "WebMVC\WebMVC.csproj", "{A8BB6262-7314-475C-A6D1-99D27558DCF8}"
-	ProjectSection(ProjectDependencies) = postProject
-		{D62F1212-56BC-4F5F-98BA-45769F2B6E22} = {D62F1212-56BC-4F5F-98BA-45769F2B6E22}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csproj", "{999ED374-9335-4E02-9078-732EDF8D55F2}"
 EndProject

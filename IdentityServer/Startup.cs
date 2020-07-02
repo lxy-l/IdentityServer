@@ -1,5 +1,6 @@
 using IdentityServer.Config;
 
+using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 
@@ -34,21 +35,21 @@ namespace IdentityServer
             services.AddControllersWithViews();
             services.AddIdentityServer()
                 //.AddInMemoryClients(Configuration.GetSection("IdentityServer:Clients"))//appsettings.json文件定义静态客户端
-                //.AddInMemoryApiResources(IdentityServerConfig.ApiResources) //数据库存储
-                //.AddInMemoryClients(IdentityServerConfig.Clients)
-                //.AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
+                //.AddInMemoryApiResources(IdentityServerConfig.ApiResources)
+                .AddInMemoryApiScopes(IdentityServerConfig.ApiScopes)
+                .AddInMemoryClients(IdentityServerConfig.Clients)
+                .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
+                .AddDeveloperSigningCredential()
+                .AddTestUsers(IdentityServerConfig.Users.ToList());
+                //.AddConfigurationStore(options=> 
+                //{
+                //    options.ConfigureDbContext = b => b.UseMySql(connectstring, sql => sql.MigrationsAssembly(migrationsAssembly));
+                //})
+                //.AddOperationalStore(options=> 
+                //{
+                //    options.ConfigureDbContext = b => b.UseMySql(connectstring, sql => sql.MigrationsAssembly(migrationsAssembly));
+                //})
                
-                .AddTestUsers(IdentityServerConfig.Users.ToList())
-                .AddConfigurationStore(options=> 
-                {
-                    options.ConfigureDbContext = b => b.UseMySql(connectstring, sql => sql.MigrationsAssembly(migrationsAssembly));
-                })
-                .AddOperationalStore(options=> 
-                {
-                    options.ConfigureDbContext = b => b.UseMySql(connectstring, sql => sql.MigrationsAssembly(migrationsAssembly));
-                })
-                .AddDeveloperSigningCredential();
-
             //services.AddAuthentication("Cookies")
             //    .AddCookie("Cookies", options =>
             //    {
@@ -73,7 +74,14 @@ namespace IdentityServer
             //            options.ClientId = "...";
             //            options.ClientSecret = "...";
             //        });//自定义
-            services.AddAuthentication();
+            services.AddAuthentication()
+                .AddMicrosoftAccount("Microsoft", options =>
+                {
+                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+
+                    options.ClientId = "<insert here>";
+                    options.ClientSecret = "<insert here>";
+                }); ;
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -86,7 +94,7 @@ namespace IdentityServer
             app.UseStaticFiles();
 
             app.UseRouting();
-            InitializeDatabase(app);
+            //InitializeDatabase(app);
             app.UseIdentityServer();
             app.UseAuthorization();
             //app.UseAuthentication();UseIdentityServer包含对的调用UseAuthentication，因此没有必要同时使用两者。
