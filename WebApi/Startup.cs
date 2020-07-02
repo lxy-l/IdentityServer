@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using IdentityServer4.AccessTokenValidation;
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -38,8 +39,8 @@ namespace WebApi
 
             #region Authentication
             IdentityModelEventSource.ShowPII = true;
-            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-                    .AddJwtBearer(IdentityServerAuthenticationDefaults.AuthenticationScheme, options =>
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
                     {
                         options.Authority = "http://localhost:5000";
                         options.RequireHttpsMetadata = false;
@@ -49,6 +50,19 @@ namespace WebApi
                             ValidateAudience = false
                         };
                     });
+            //services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+            //        .AddIdentityServerAuthentication(options =>
+            //        {
+            //            // base-address of your identityserver
+            //            options.Authority = "http://localhost:5000";
+            //            options.SaveToken = true;
+            //            options.RequireHttpsMetadata = false;
+            //            // name of the API resource
+            //            options.ApiName = "API";
+            //            options.ApiSecret = "secret";
+            //            options.Validate();
+            //        });
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("ApiScope", policy =>
