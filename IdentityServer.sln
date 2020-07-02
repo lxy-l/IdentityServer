@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{D62F1212-56BC-4F5F-98BA-45769F2B6E22}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Asp.Identity", "Asp.Identity\Asp.Identity.csproj", "{54CDB8F9-2D5A-40E2-B944-B5CC14604B0D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{4EEF7B84-0B4F-4927-9EC1-94CAE98D00AA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D62F1212-56BC-4F5F-98BA-45769F2B6E22} = {D62F1212-56BC-4F5F-98BA-45769F2B6E22}
@@ -38,10 +36,6 @@ Global
 		{D62F1212-56BC-4F5F-98BA-45769F2B6E22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D62F1212-56BC-4F5F-98BA-45769F2B6E22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D62F1212-56BC-4F5F-98BA-45769F2B6E22}.Release|Any CPU.Build.0 = Release|Any CPU
-		{54CDB8F9-2D5A-40E2-B944-B5CC14604B0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{54CDB8F9-2D5A-40E2-B944-B5CC14604B0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{54CDB8F9-2D5A-40E2-B944-B5CC14604B0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{54CDB8F9-2D5A-40E2-B944-B5CC14604B0D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4EEF7B84-0B4F-4927-9EC1-94CAE98D00AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4EEF7B84-0B4F-4927-9EC1-94CAE98D00AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EEF7B84-0B4F-4927-9EC1-94CAE98D00AA}.Release|Any CPU.ActiveCfg = Release|Any CPU

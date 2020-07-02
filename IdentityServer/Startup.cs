@@ -34,10 +34,10 @@ namespace IdentityServer
             services.AddControllersWithViews();
             services.AddIdentityServer()
                 //.AddInMemoryClients(Configuration.GetSection("IdentityServer:Clients"))//appsettings.json文件定义静态客户端
-                .AddInMemoryApiResources(IdentityServerConfig.ApiResources)
-                .AddInMemoryClients(IdentityServerConfig.Clients)
-                .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
-                .AddDeveloperSigningCredential()
+                //.AddInMemoryApiResources(IdentityServerConfig.ApiResources) //数据库存储
+                //.AddInMemoryClients(IdentityServerConfig.Clients)
+                //.AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
+               
                 .AddTestUsers(IdentityServerConfig.Users.ToList())
                 .AddConfigurationStore(options=> 
                 {
@@ -46,7 +46,8 @@ namespace IdentityServer
                 .AddOperationalStore(options=> 
                 {
                     options.ConfigureDbContext = b => b.UseMySql(connectstring, sql => sql.MigrationsAssembly(migrationsAssembly));
-                });
+                })
+                .AddDeveloperSigningCredential();
 
             //services.AddAuthentication("Cookies")
             //    .AddCookie("Cookies", options =>
