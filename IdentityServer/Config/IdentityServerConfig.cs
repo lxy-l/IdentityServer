@@ -111,23 +111,21 @@ namespace IdentityServer.Config
             //简化模式 With OpenID & OAuth
             new Client
             {
-                    ClientId = "js",
-                    ClientName = "JavaScript Client",
-                    AllowedGrantTypes = GrantTypes.Implicit,
-                    AllowAccessTokensViaBrowser = true,
+                ClientId = "js",
+                ClientName = "JavaScript Client",
+                AllowedGrantTypes = GrantTypes.Code,
+                RequireClientSecret = false,
 
-                    RedirectUris = { "http://localhost:5002/callback.html" },
-                    PostLogoutRedirectUris = { "http://localhost:5002/index.html" },
-                    AllowedCorsOrigins = { "http://localhost:5002" },
+                RedirectUris =           { "http://localhost:5003/callback.html" },
+                PostLogoutRedirectUris = { "http://localhost:5003/index.html" },
+                AllowedCorsOrigins =     { "http://localhost:5003" },
 
-                    RequireConsent = false, //禁用 consent 页面确认 https://github.com/IdentityServer/IdentityServer3/issues/863
-
-                    AllowedScopes =
-                    {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        "API"
-                    }
+                AllowedScopes =
+                {
+                    IdentityServerConstants.StandardScopes.OpenId,
+                    IdentityServerConstants.StandardScopes.Profile,
+                    "api1"
+                }
             },
             //混合模式With OpenID & OAuth
            new Client

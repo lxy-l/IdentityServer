@@ -41,39 +41,15 @@ namespace IdentityServer
                 .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
                 .AddDeveloperSigningCredential()
                 .AddTestUsers(IdentityServerConfig.Users.ToList());
-                //.AddConfigurationStore(options=> 
-                //{
-                //    options.ConfigureDbContext = b => b.UseMySql(connectstring, sql => sql.MigrationsAssembly(migrationsAssembly));
-                //})
-                //.AddOperationalStore(options=> 
-                //{
-                //    options.ConfigureDbContext = b => b.UseMySql(connectstring, sql => sql.MigrationsAssembly(migrationsAssembly));
-                //})
-               
-            //services.AddAuthentication("Cookies")
-            //    .AddCookie("Cookies", options =>
-            //    {
-            //        options.ExpireTimeSpan = TimeSpan.Zero;
-            //    });//Cookie验证
+            //.AddConfigurationStore(options=> 
+            //{
+            //    options.ConfigureDbContext = b => b.UseMySql(connectstring, sql => sql.MigrationsAssembly(migrationsAssembly));
+            //})
+            //.AddOperationalStore(options=> 
+            //{
+            //    options.ConfigureDbContext = b => b.UseMySql(connectstring, sql => sql.MigrationsAssembly(migrationsAssembly));
+            //})
 
-            //services.AddAuthentication()
-            //     .AddGoogle("Google", options =>
-            //     {
-            //         options.SignInScheme = "scheme of cookie handler to use";
-
-            //         options.ClientId = "...";
-            //         options.ClientSecret = "...";
-            //     });//谷歌支持,Microsoft.AspNetCore.Authentication.Google
-
-            //services.AddAuthentication()
-            //        .AddCookie("YourCustomScheme")
-            //        .AddGoogle("Google", options =>
-            //        {
-            //            options.SignInScheme = "YourCustomScheme";
-
-            //            options.ClientId = "...";
-            //            options.ClientSecret = "...";
-            //        });//自定义
             services.AddAuthentication()
                 .AddMicrosoftAccount("Microsoft", options =>
                 {
@@ -81,7 +57,13 @@ namespace IdentityServer
 
                     options.ClientId = "<insert here>";
                     options.ClientSecret = "<insert here>";
-                }); ;
+                })
+                .AddGoogle("Google", options =>
+                 {
+                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                     options.ClientId = "sdf";
+                     options.ClientSecret = "asdfa";
+                 });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

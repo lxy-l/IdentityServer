@@ -22,6 +22,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServerAspNetIdentity", "IdentityServerAspNetIdentity\IdentityServerAspNetIdentity.csproj", "{A95B3AD7-999E-4BEE-AE8D-7D7534A9A29C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebJs", "WebJs\WebJs.csproj", "{423C5AB8-C2FD-4A22-9637-B817251F7413}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{A95B3AD7-999E-4BEE-AE8D-7D7534A9A29C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A95B3AD7-999E-4BEE-AE8D-7D7534A9A29C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A95B3AD7-999E-4BEE-AE8D-7D7534A9A29C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{423C5AB8-C2FD-4A22-9637-B817251F7413}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{423C5AB8-C2FD-4A22-9637-B817251F7413}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{423C5AB8-C2FD-4A22-9637-B817251F7413}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{423C5AB8-C2FD-4A22-9637-B817251F7413}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

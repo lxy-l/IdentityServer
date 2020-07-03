@@ -47,7 +47,8 @@ namespace WebApi
                         options.Audience = "API";
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
-                            ValidateAudience = false
+                            ValidateAudience = false,
+                            ValidateIssuer = true
                         };
                     });
             //services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
