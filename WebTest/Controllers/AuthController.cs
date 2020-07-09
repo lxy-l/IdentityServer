@@ -36,7 +36,11 @@ namespace WebTest.Controllers
             var user = _db.Users.FirstOrDefault(x => x.Name == name && x.PasswordHash == pass);
             if (user!=null)
             {
-                var claims = new Claim[] { new Claim(ClaimTypes.Name, user.Name), new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString()), new Claim(ClaimTypes.SerialNumber, user.Id.ToString()) };
+                var claims = new Claim[] { 
+                    new Claim(ClaimTypes.Name, user.Name), 
+                    new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString()), 
+                    new Claim(ClaimTypes.SerialNumber, user.Id.ToString()) 
+                };
                 return Ok(_jwtService.GetJwtToken(claims));
             }
             else
@@ -55,7 +59,11 @@ namespace WebTest.Controllers
                 var user = _db.Users.Find(int.Parse(tokenModel.Id));
                 if (user!=null)
                 {
-                    var claims = new Claim[] { new Claim(ClaimTypes.Name, user.Name), new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString()), new Claim(ClaimTypes.SerialNumber, user.Id.ToString()) };
+                    var claims = new Claim[] { 
+                        new Claim(ClaimTypes.Name, user.Name), 
+                        new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString()), 
+                        new Claim(ClaimTypes.SerialNumber, user.Id.ToString()) 
+                    };
                     return Ok(_jwtService.GetJwtToken(claims));
                 }
                 else

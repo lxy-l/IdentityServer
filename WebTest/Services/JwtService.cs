@@ -69,7 +69,9 @@ namespace WebTest.Services
             return jwtToken;
         }
 
-
+        /// <summary>
+        /// JwtToken视图模型
+        /// </summary>
         public class JwtTokenViewModel
         {
             public string access_token { get; set; }
