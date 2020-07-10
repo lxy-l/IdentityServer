@@ -32,8 +32,14 @@ namespace WebTest.Models
         public string PasswordHash { get; set; }
 
         /// <summary>
+        /// 并发标记
+        /// </summary>
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
+
+        /// <summary>
         /// 一个用户多个角色
         /// </summary>
-        public virtual ICollection<Role> Roles { get; set; }
+        public virtual List<UserRole> UserRoles { get; set; }
     }
 }

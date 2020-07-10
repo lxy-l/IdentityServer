@@ -25,6 +25,6 @@ namespace WebTest.Models
         /// <summary>
         /// 一个角色多个用户
         /// </summary>
-        public virtual ICollection<User> Users { get; set; }
+        public virtual List<UserRole> UserRoles { get; set; }
     }
 }

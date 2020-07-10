@@ -21,9 +21,15 @@ namespace WebTest.Data
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
+            if (Convert.ToBoolean(config["ConnectionStrings:UseMysql"]))
+            {
+                optionsBuilder.UseMySql(config.GetConnectionString("MysqlConnection"));
+            }
+            else
+            {
+                optionsBuilder.UseSqlServer(config.GetConnectionString("SQLServerConnection"));
+            }
 
-           optionsBuilder.UseMySql(config.GetConnectionString("MysqlConnection"));
-            
         }
         public DbSet<User> Users{ get; set; }
         public DbSet<Role> Roles{ get; set; }
