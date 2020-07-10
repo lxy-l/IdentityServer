@@ -1,9 +1,10 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace WebTest.Migrations
+namespace WebTest.Migrations.MySQL
 {
-    public partial class InitDataBase : Migration
+    public partial class MysqlInit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +13,7 @@ namespace WebTest.Migrations
                 columns: table => new
                 {
                     Rid = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     RoleName = table.Column<string>(maxLength: 255, nullable: false)
                 },
                 constraints: table =>
@@ -25,10 +26,11 @@ namespace WebTest.Migrations
                 columns: table => new
                 {
                     Uid = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 255, nullable: false),
                     PasswordHash = table.Column<string>(maxLength: 255, nullable: false),
-                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true)
+                    RowVersion = table.Column<DateTime>(rowVersion: true, nullable: true)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.ComputedColumn)
                 },
                 constraints: table =>
                 {
@@ -40,7 +42,7 @@ namespace WebTest.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Uid = table.Column<int>(nullable: false),
                     Rid = table.Column<int>(nullable: false)
                 },
