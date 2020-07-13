@@ -9,7 +9,7 @@ using WebTest.Data;
 namespace WebTest.Migrations.Mysql
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20200713015724_init")]
+    [Migration("20200713074851_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
