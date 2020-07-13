@@ -58,6 +58,8 @@ namespace WebTest
             app.UseAuthentication();
             app.UseAuthorization();
 
+            InitData.InitializeDatabase(app);
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

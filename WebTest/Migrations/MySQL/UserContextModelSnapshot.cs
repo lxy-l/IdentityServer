@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebTest.Data;
 
-namespace WebTest.Migrations.MySQL
+namespace WebTest.Migrations.Mysql
 {
     [DbContext(typeof(UserContext))]
     partial class UserContextModelSnapshot : ModelSnapshot
@@ -58,7 +58,7 @@ namespace WebTest.Migrations.MySQL
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("WebTest.Models.UserRole", b =>

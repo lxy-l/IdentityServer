@@ -26,7 +26,7 @@ namespace WebTest.Services
         /// </summary>
         /// <param name="claims"></param>
         /// <returns></returns>
-        public JwtTokenViewModel GetJwtToken(Claim[] claims=null)
+        public JwtTokenViewModel GetJwtToken(List<Claim> claims=null)
         {
             if (claims==null)
             {

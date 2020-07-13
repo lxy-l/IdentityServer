@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace WebTest.Migrations.MySQL
+namespace WebTest.Migrations.Mysql
 {
-    public partial class MysqlInit : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,7 +22,7 @@ namespace WebTest.Migrations.MySQL
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     Uid = table.Column<int>(nullable: false)
@@ -34,7 +34,7 @@ namespace WebTest.Migrations.MySQL
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Uid);
+                    table.PrimaryKey("PK_Users", x => x.Uid);
                 });
 
             migrationBuilder.CreateTable(
@@ -56,9 +56,9 @@ namespace WebTest.Migrations.MySQL
                         principalColumn: "Rid",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserRole_User_Uid",
+                        name: "FK_UserRole_Users_Uid",
                         column: x => x.Uid,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Uid",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -83,7 +83,7 @@ namespace WebTest.Migrations.MySQL
                 name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
         }
     }
 }

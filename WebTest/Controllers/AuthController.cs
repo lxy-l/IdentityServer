@@ -36,11 +36,13 @@ namespace WebTest.Controllers
             var user = _db.Users.FirstOrDefault(x => x.Name == name && x.PasswordHash == pass);
             if (user!=null)
             {
-                var claims = new Claim[] { 
+                var roles = _db.UserRole.Where(x => x.Uid == user.Id).Select(s => s.Role.RoleName);
+                var claims = new List<Claim> { 
                     new Claim(ClaimTypes.Name, user.Name), 
                     new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString()), 
                     new Claim(ClaimTypes.SerialNumber, user.Id.ToString()) 
                 };
+                claims.AddRange(roles.Select(s => new Claim(ClaimTypes.Role, s)));
                 return Ok(_jwtService.GetJwtToken(claims));
             }
             else
@@ -59,7 +61,7 @@ namespace WebTest.Controllers
                 var user = _db.Users.Find(int.Parse(tokenModel.Id));
                 if (user!=null)
                 {
-                    var claims = new Claim[] { 
+                    var claims =new List<Claim>{ 
                         new Claim(ClaimTypes.Name, user.Name), 
                         new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString()), 
                         new Claim(ClaimTypes.SerialNumber, user.Id.ToString()) 

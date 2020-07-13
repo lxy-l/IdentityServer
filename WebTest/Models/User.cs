@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace WebTest.Models
 {
-    [Table(nameof(User))]
     public class User
     {
         /// <summary>

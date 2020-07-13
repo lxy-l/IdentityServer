@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace WebTest.Controllers
 {
     [ApiController]
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
