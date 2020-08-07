@@ -59,11 +59,11 @@ namespace IdentityServer
                     options.ClientSecret = "<insert here>";
                 })
                 .AddGoogle("Google", options =>
-                 {
-                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-                     options.ClientId = "sdf";
-                     options.ClientSecret = "asdfa";
-                 });
+                {
+                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                    options.ClientId = "sdf";
+                    options.ClientSecret = "asdfa";
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
