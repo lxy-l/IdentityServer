@@ -8,6 +8,9 @@ using System.Linq;
 
 namespace IdentityServer.Controllers
 {
+    /// <summary>
+    /// 天气控制器
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     //[Authorize]
