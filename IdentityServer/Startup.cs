@@ -34,7 +34,7 @@ namespace IdentityServer
             //services.AddControllers();
             services.AddControllersWithViews();
             services.AddIdentityServer()
-                //.AddInMemoryClients(Configuration.GetSection("IdentityServer:Clients"))//appsettings.jsonÎÄ¼þ¶¨Òå¾²Ì¬¿Í»§¶Ë
+                //.AddInMemoryClients(Configuration.GetSection("IdentityServer:Clients"))//appsettings.jsonæ–‡ä»¶å®šä¹‰é™æ€å®¢æˆ·ç«¯
                 //.AddInMemoryApiResources(IdentityServerConfig.ApiResources)
                 .AddInMemoryApiScopes(IdentityServerConfig.ApiScopes)
                 .AddInMemoryClients(IdentityServerConfig.Clients)
@@ -79,10 +79,10 @@ namespace IdentityServer
             //InitializeDatabase(app);
             app.UseIdentityServer();
             app.UseAuthorization();
-            //app.UseAuthentication();UseIdentityServer°üº¬¶ÔµÄµ÷ÓÃUseAuthentication£¬Òò´ËÃ»ÓÐ±ØÒªÍ¬Ê±Ê¹ÓÃÁ½Õß¡£
-            // AddAuthentication½«Éí·ÝÑéÖ¤·þÎñÌí¼Óµ½DI²¢ÅäÖÃBearerÎªÄ¬ÈÏ·½°¸¡£
-            // UseAuthentication ½«Éí·ÝÑéÖ¤ÖÐ¼ä¼þÌí¼Óµ½¹ÜµÀÖÐ£¬ÒÔ±ã¶ÔÖ÷»úµÄÃ¿´Îµ÷ÓÃ¶¼½«×Ô¶¯Ö´ÐÐÉí·ÝÑéÖ¤¡£
-            // UseAuthorization Ìí¼ÓÁËÊÚÈ¨ÖÐ¼ä¼þ£¬ÒÔÈ·±£ÄäÃû¿Í»§¶ËÎÞ·¨·ÃÎÊÎÒÃÇµÄAPI¶Ëµã¡£
+            //app.UseAuthentication();UseIdentityServeråŒ…å«å¯¹çš„è°ƒç”¨UseAuthenticationï¼Œå› æ­¤æ²¡æœ‰å¿…è¦åŒæ—¶ä½¿ç”¨ä¸¤è€…ã€‚
+            // AddAuthenticationå°†èº«ä»½éªŒè¯æœåŠ¡æ·»åŠ åˆ°DIå¹¶é…ç½®Bearerä¸ºé»˜è®¤æ–¹æ¡ˆã€‚
+            // UseAuthentication å°†èº«ä»½éªŒè¯ä¸­é—´ä»¶æ·»åŠ åˆ°ç®¡é“ä¸­ï¼Œä»¥ä¾¿å¯¹ä¸»æœºçš„æ¯æ¬¡è°ƒç”¨éƒ½å°†è‡ªåŠ¨æ‰§è¡Œèº«ä»½éªŒè¯ã€‚
+            // UseAuthorization æ·»åŠ äº†æŽˆæƒä¸­é—´ä»¶ï¼Œä»¥ç¡®ä¿åŒ¿åå®¢æˆ·ç«¯æ— æ³•è®¿é—®æˆ‘ä»¬çš„APIç«¯ç‚¹ã€‚
             //app.UseEndpoints(endpoints =>
             //{
             //    endpoints.MapControllers();
