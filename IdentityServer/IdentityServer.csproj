@@ -23,7 +23,7 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.3" />
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties tempkey_1jwk__JsonSchema="https://w3id.org/linkml/meta.schema.json" /></VisualStudio></ProjectExtensions>
 
 
 </Project>
