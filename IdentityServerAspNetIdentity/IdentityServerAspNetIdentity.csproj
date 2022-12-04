@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'SelfHost' " />
   <ItemGroup>
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="4.0.1" />
 
