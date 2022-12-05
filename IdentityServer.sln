@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenIddictServer", "OpenIdd
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenIddictClient", "OpenIddictClient\OpenIddictClient.csproj", "{B952B3A2-A023-4C14-83A5-2B61FD93D949}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenIddictServerAspNetIdentity", "OpenIddictServerAspNetIdentity\OpenIddictServerAspNetIdentity.csproj", "{62900CBB-18B5-4A9A-96F2-D900F4519318}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{B952B3A2-A023-4C14-83A5-2B61FD93D949}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B952B3A2-A023-4C14-83A5-2B61FD93D949}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B952B3A2-A023-4C14-83A5-2B61FD93D949}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62900CBB-18B5-4A9A-96F2-D900F4519318}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62900CBB-18B5-4A9A-96F2-D900F4519318}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62900CBB-18B5-4A9A-96F2-D900F4519318}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62900CBB-18B5-4A9A-96F2-D900F4519318}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.IdentityModel.Tokens;
-
-using OpenIddict.Server.AspNetCore;
-using OpenIddict.Validation.AspNetCore;
+﻿using OpenIddict.Validation.AspNetCore;
 
 using OpenIddictServer.Data;
 
@@ -40,7 +36,7 @@ namespace OpenIddictServer.Config
                             .AllowHybridFlow()
                             .AllowRefreshTokenFlow()
 
-                            .RegisterScopes(Scopes.Email, Scopes.Profile, Scopes.Roles)
+                            .RegisterScopes(Scopes.Email, Scopes.Profile, Scopes.Roles,"api")
 
                         //    .AddEncryptionKey(new SymmetricSecurityKey(
                         //Convert.FromBase64String("DRjd/nduI3Efze123nvbNUfc/=")))
