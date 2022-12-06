@@ -1,10 +1,8 @@
 ﻿using OpenIddict.Validation.AspNetCore;
-
-using OpenIddictServer.Data;
-
+using OpenIddictServerAspNetIdentity.Data;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
-namespace OpenIddictServer.Config
+namespace OpenIddictServerAspNetIdentity.Config
 {
     public static class OpeniddictConfig
 	{
@@ -36,13 +34,13 @@ namespace OpenIddictServer.Config
                             .AllowHybridFlow()
                             .AllowRefreshTokenFlow()
 
-                            .RegisterScopes(Scopes.Email, Scopes.Profile, Scopes.Roles,"api")
+                            .RegisterScopes(Scopes.Email, Scopes.Profile, Scopes.Roles, "api")
 
                         //    .AddEncryptionKey(new SymmetricSecurityKey(
                         //Convert.FromBase64String("DRjd/nduI3Efze123nvbNUfc/=")))
                             .AddDevelopmentEncryptionCertificate()
                             .AddDevelopmentSigningCertificate()
-                            //.RequireProofKeyForCodeExchange()
+                            .RequireProofKeyForCodeExchange()
 
                             .UseAspNetCore()
                                 .EnableAuthorizationEndpointPassthrough()
@@ -60,7 +58,7 @@ namespace OpenIddictServer.Config
                             options.UseAspNetCore();
                         });
 
-            Services.AddAuthentication(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
+            //Services.AddAuthentication(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
             //Services
             //    .AddAuthorization()
             //    .AddAuthentication(OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
