@@ -53,6 +53,17 @@ namespace IdentityServerAspNetIdentity
                     AllowOfflineAccess = true,
                     AllowedScopes = { "openid", "profile", "scope2" }
                 },
+                 new Client
+                {
+                    ClientId = "pwd",
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    ClientSecrets =
+                    {
+                         new Secret("secret".Sha256())
+                    },
+                    AllowOfflineAccess = true,
+                    AllowedScopes = { "openid", "profile", "scope2" }
+                }
             };
     }
 }

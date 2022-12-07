@@ -12,9 +12,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.Authority = "http://localhost:5213";
+        options.Authority = "http://localhost:5212";
         options.RequireHttpsMetadata= false;
-        options.Audience = "APIResource";
+        options.Audience = "api";
     });
 
 var app = builder.Build();

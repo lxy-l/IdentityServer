@@ -1,4 +1,6 @@
-﻿using OpenIddict.Validation.AspNetCore;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+
+using OpenIddict.Validation.AspNetCore;
 using OpenIddictServerAspNetIdentity.Data;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
@@ -8,6 +10,8 @@ namespace OpenIddictServerAspNetIdentity.Config
 	{
 		public static void AddOpeniddictConfig(this IServiceCollection Services)
 		{
+            //Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
+
             Services.AddOpenIddict()
                         .AddCore(options =>
                         {
@@ -53,7 +57,7 @@ namespace OpenIddictServerAspNetIdentity.Config
                         })
                         .AddValidation(options =>
                         {
-                            //options.AddAudiences("APIResource");
+                            options.AddAudiences("api");
                             options.UseLocalServer();
                             options.UseAspNetCore();
                         });

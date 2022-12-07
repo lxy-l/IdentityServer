@@ -1,4 +1,6 @@
-﻿using System.Security.Claims;
+﻿using System.Collections.Immutable;
+using System.Security.Claims;
+using System.Security.Principal;
 
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
@@ -6,9 +8,12 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
+
+using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace OpenIddictServerAspNetIdentity.Controllers
 {
@@ -69,9 +74,23 @@ namespace OpenIddictServerAspNetIdentity.Controllers
             claimsPrincipal.SetScopes(request.GetScopes());
             return SignIn(claimsPrincipal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
         }
+        protected virtual async Task<IEnumerable<string>> GetResourcesAsync(ImmutableArray<string> scopes)
+        {
+            var resources = new List<string>();
+            if (!scopes.Any())
+            {
+                return resources;
+            }
 
-        [HttpPost("~/connect/token")]
-        //[Route("~/connect/token")]
+            await foreach (var resource in _scopeManager.ListResourcesAsync(scopes))
+            {
+                resources.Add(resource);
+            }
+            return resources;
+        }
+        //[HttpPost("~/connect/token"), IgnoreAntiforgeryToken, Produces("application/json")]
+        [HttpPost]
+        [Route("~/connect/token")]
         public async Task<IActionResult> Token()
         {
             var request = HttpContext.GetOpenIddictServerRequest() ??
@@ -87,7 +106,6 @@ namespace OpenIddictServerAspNetIdentity.Controllers
                 claimsPrincipal = new ClaimsPrincipal(identity);
                 claimsPrincipal.SetScopes(request.GetScopes());
             }
-
             else if (request.IsAuthorizationCodeGrantType())
             {
                 claimsPrincipal = (await HttpContext.AuthenticateAsync(OpenIddictServerAspNetCoreDefaults.AuthenticationScheme)).Principal;
@@ -96,6 +114,44 @@ namespace OpenIddictServerAspNetIdentity.Controllers
             else if (request.IsRefreshTokenGrantType())
             {
                 claimsPrincipal = (await HttpContext.AuthenticateAsync(OpenIddictServerAspNetCoreDefaults.AuthenticationScheme)).Principal;
+            }
+            else if (request.IsPasswordGrantType())
+            {
+
+                var username=request.Username;
+                var password=request.Password;  
+
+
+                var user = await _userManager.FindByNameAsync(username);
+                if (user != null)
+                {
+                    bool isSuccess = await _userManager.CheckPasswordAsync(user, password);
+                    if (isSuccess)
+                    {
+                        var claimsIdentity = await _userManager.GetClaimsAsync(user);
+                        var identity = new ClaimsIdentity(claimsIdentity,
+                            authenticationType: TokenValidationParameters.DefaultAuthenticationType,
+                            nameType: Claims.Name,
+                            roleType: Claims.Role);
+
+                        identity.SetClaim(Claims.Subject, await _userManager.GetUserIdAsync(user))
+                                    .SetClaim(Claims.Email, await _userManager.GetEmailAsync(user))
+                                    .SetClaim(Claims.Name, await _userManager.GetUserNameAsync(user));
+                                    //.SetClaims(Claims.Role, (await _userManager.GetRolesAsync(user)).ToImmutableArray());
+                        claimsPrincipal = new ClaimsPrincipal(identity);
+                        claimsPrincipal.SetScopes(request.GetScopes());
+                        claimsPrincipal.SetResources(await GetResourcesAsync(request.GetScopes()));
+                        //claimsPrincipal.
+                    }
+                    else
+                    {
+                        return Unauthorized();
+                    }
+                }
+                else
+                {
+                    return Unauthorized();
+                }
             }
             else
             {

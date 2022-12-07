@@ -1,5 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
+using OpenIddict.Validation.AspNetCore;
+
+using OpenIddictServer.Config;
+
 using OpenIddictServerAspNetIdentity.Config;
 using OpenIddictServerAspNetIdentity.Data;
 
@@ -21,6 +27,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 
 builder.Services.AddOpeniddictConfig();
 
+builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
@@ -42,11 +49,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+
 app.UseAuthentication();
+//app.UseJwtTokenMiddleware();
+//app.UseOpenIddictValidation();
 app.UseAuthorization();
 
+app.MapControllers();
+app.MapDefaultControllerRoute();
 app.MapRazorPages();
-
-app.Run();
-
-
+await app.RunAsync();
