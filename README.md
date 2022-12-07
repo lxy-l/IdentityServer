@@ -1,39 +1,41 @@
+# IdentityServer è®¤è¯æˆæƒ
+>ç”¨äºå­¦ä¹ OAuth2.0å’ŒOpenId Connect
+>ä»¥åŠç»„ä»¶ï¼šIdentityServer4ï¼ŒOpenIddict
+---
 
-OAuth 2.0ÊÇÓÃÓÚauthorizationµÄ¹¤Òµ±ê×¼Ğ­Òé. Ëü¹Ø×¢µÄÊÇÎªwebÓ¦ÓÃ, ×ÀÃæÓ¦ÓÃ, ÒÆ¶¯Ó¦ÓÃµÈÌá¹©ÌØ¶¨µÄauthorizationÁ÷³Ì²¢±£Ö¤¿ª·¢µÄ¼òµ¥ĞÔ.
+## OAuth2.0 & OpenId Connect
+>OAuth 2.0æ˜¯ç”¨äºauthorizationçš„å·¥ä¸šæ ‡å‡†åè®®. å®ƒå…³æ³¨çš„æ˜¯ä¸ºwebåº”ç”¨, æ¡Œé¢åº”ç”¨, ç§»åŠ¨åº”ç”¨ç­‰æä¾›ç‰¹å®šçš„authorizationæµç¨‹å¹¶ä¿è¯å¼€å‘çš„ç®€å•æ€§.OAuthæ˜¯åŸºäºtokençš„åè®®.
 
-AuthorizationµÄÒâË¼ÊÇÊÚÈ¨, Ëü±íÊ¾ÎÒÃÇ¿ÉÒÔÊÚÈ¨¸øÄ³Ğ©ÓÃ»§, ÒÔ±ãËûÃÇÄÜ·ÃÎÊÒ»Ğ©Êı¾İ, Ò²¾ÍÊÇÌá¹©·ÃÎÊÈ¨.
+### Authorization
+1. Authorizationçš„æ„æ€æ˜¯æˆæƒ, å®ƒè¡¨ç¤ºæˆ‘ä»¬å¯ä»¥æˆæƒç»™æŸäº›ç”¨æˆ·, ä»¥ä¾¿ä»–ä»¬èƒ½è®¿é—®ä¸€äº›æ•°æ®, ä¹Ÿå°±æ˜¯æä¾›è®¿é—®æƒ.
+2. OAuthåªè´Ÿè´£Authorization.
 
-OAuthÊÇ»ùÓÚtokenµÄĞ­Òé.
+### Authentication
+1. Authenticationçš„æ„æ€æ˜¯è®¤è¯ï¼Œé€šè¿‡å‡­æ®æ¥éªŒè¯ä½ æ˜¯è°ã€‚ä¾‹å¦‚é€šè¿‡ç”¨æˆ·åå’Œå¯†ç ç™»å½•è¿™ä¸ªæ“ä½œæ¥éªŒè¯ä½ çš„èº«ä»½ã€‚
+2. OpenId Connectæ˜¯å¯¹OAuthçš„ä¸€ç§è¡¥å……,ä»–è´Ÿè´£Authentication.
 
-ÓĞĞ©ÈË¿ÉÄÜ¶ÔAuthorizationºÍAuthentication·Ö²»Çå, ÉÏÃæ½²ÁËauthorization, ¶øauthenticationÔòÊÇÖ¤Ã÷ÎÒÊÇË­, ÀıÈçÊ¹ÓÃÓÃ»§ÃûºÍÃÜÂë½øĞĞµÇÂ¼¾ÍÊÇauthentication.
-
-OAuthÖ»¸ºÔğAuthorization. ÄÇÃ´Ë­À´¸ºÔğAuthenticationÄØ?
-
-ÄÇ¾ÍÊÇOpenId Connect, OpenId ConnectÊÇ¶ÔOAuthµÄÒ»ÖÖ²¹³ä, ÒòÎªËüÄÜ½øĞĞAuthentication.
-
-OpenId Connect ÊÇÎ»ÓÚOAuth 2.0ÉÏµÄÒ»¸ö¼òµ¥µÄÑéÖ¤²ã, ËüÔÊĞí¿Í»§¶ËÊ¹ÓÃauthorization serverµÄauthentication²Ù×÷À´ÑéÖ¤ÖÕ¶ËÓÃ»§µÄÉí·İ, Í¬Ê±Ò²¿ÉÒÔ»òÈ±ÖÕ¶Ë¿Í»§µÄÒ»Ğ©»ù±¾ĞÅÏ¢.
+###  OpenId Connect
+1. OpenId Connectæ˜¯å¯¹OAuthçš„ä¸€ç§è¡¥å……, å› ä¸ºå®ƒèƒ½è¿›è¡ŒAuthentication.
+2. OpenId Connect æ˜¯ä½äºOAuth 2.0ä¸Šçš„ä¸€ä¸ªç®€å•çš„éªŒè¯å±‚, å®ƒå…è®¸å®¢æˆ·ç«¯ä½¿ç”¨authorization serverçš„authenticationæ“ä½œæ¥éªŒè¯ç»ˆç«¯ç”¨æˆ·çš„èº«ä»½, åŒæ—¶ä¹Ÿå¯ä»¥æˆ–ç¼ºç»ˆç«¯å®¢æˆ·çš„ä¸€äº›åŸºæœ¬ä¿¡æ¯.
 
 
+## OAuth 2.0 RFC 6794
+>RC 6749æ–‡æ¡£: https://tools.ietf.org/html/rfc6749
 
-OAuth 2.0 RFC 6794
-RC 6749ÎÄµµ: https://tools.ietf.org/html/rfc6749
+### OAuthé€šå¸¸æœ‰ä»¥ä¸‹å‡ ç§endpoint:
+1. /authorize, è¯·æ±‚token(é€šè¿‡ç‰¹å®šçš„æµç¨‹flows)
+2. /token, è¯·æ±‚token(é€šè¿‡ç‰¹å®šçš„æµç¨‹flows), åˆ·æ–°token, ä½¿ç”¨authorization codeæ¥æ¢å–token.
 
-OAuthÍ¨³£ÓĞÒÔÏÂ¼¸ÖÖendpoint:
+3. /revocation, åŠé”€token.
 
-1. /authorize, ÇëÇótoken(Í¨¹ıÌØ¶¨µÄÁ÷³Ìflows)
+### OpenId Connect é€šå¸¸æœ‰ä»¥ä¸‹å‡ ç§ endpoints:
 
-2. /token, ÇëÇótoken(Í¨¹ıÌØ¶¨µÄÁ÷³Ìflows), Ë¢ĞÂtoken, Ê¹ÓÃauthorization codeÀ´»»È¡token.
+1. /userinfo, è·å–ç”¨æˆ·ä¿¡æ¯
 
-3. /revocation, µõÏútoken.
+2. /checksession, æ£€æŸ¥å½“å‰ç”¨æˆ·çš„session
 
-OpenId Connect Í¨³£ÓĞÒÔÏÂ¼¸ÖÖ endpoints:
+3. /endsession, ç»ˆç»“å½“å‰ç”¨æˆ·çš„session
 
-1. /userinfo, »ñÈ¡ÓÃ»§ĞÅÏ¢
+4. /.well-known/openid-configuration, æä¾›äº†authorization serverçš„ä¿¡æ¯(endpointsåˆ—è¡¨å’Œé…ç½®ä¿¡æ¯ç­‰)
 
-2. /checksession, ¼ì²éµ±Ç°ÓÃ»§µÄsession
-
-3. /endsession, ÖÕ½áµ±Ç°ÓÃ»§µÄsession
-
-4. /.well-known/openid-configuration, Ìá¹©ÁËauthorization serverµÄĞÅÏ¢(endpointsÁĞ±íºÍÅäÖÃĞÅÏ¢µÈ)
-
-5. /.well-known/jwks, ÁĞ³öÁËJWTÇ©ÃûkeyµÄĞÅÏ¢, ËüÃÇÊÇÓÃÀ´ÑéÖ¤tokenµÄ.
+5. /.well-known/jwks, åˆ—å‡ºäº†JWTç­¾åkeyçš„ä¿¡æ¯, å®ƒä»¬æ˜¯ç”¨æ¥éªŒè¯tokençš„.
