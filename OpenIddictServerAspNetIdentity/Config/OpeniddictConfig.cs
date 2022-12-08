@@ -29,6 +29,7 @@ namespace OpenIddictServerAspNetIdentity.Config
                             .SetVerificationEndpointUris("/connect/verify")
                             .SetLogoutEndpointUris("/connect/logout")
                             .SetTokenEndpointUris("/connect/token")
+                            
 
                             .AllowDeviceCodeFlow()
                             .AllowClientCredentialsFlow()

@@ -1,6 +1,11 @@
-﻿using IdentityServer4;
+﻿using System.Reflection;
+using System.Threading.Tasks;
+
+using IdentityServer4;
+
 using IdentityServerAspNetIdentity.Data;
 using IdentityServerAspNetIdentity.Models;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -24,10 +29,12 @@ namespace IdentityServerAspNetIdentity
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+
             services.AddControllersWithViews();
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -39,16 +46,29 @@ namespace IdentityServerAspNetIdentity
                 options.Events.RaiseInformationEvents = true;
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseSuccessEvents = true;
-
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                 options.EmitStaticAudienceClaim = true;
             })
-                .AddInMemoryIdentityResources(Config.IdentityResources)
-                .AddInMemoryApiScopes(Config.ApiScopes)
-                .AddInMemoryClients(Config.Clients)
+                 .AddConfigurationStore(options =>
+                 {
+                     options.ConfigureDbContext = builder =>
+                         builder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                             sql => sql.MigrationsAssembly(migrationsAssembly));
+                 })
+                .AddOperationalStore(options =>
+                {
+                    options.ConfigureDbContext = builder =>
+                        builder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), sql =>
+                            sql.MigrationsAssembly(migrationsAssembly));
+                    options.EnableTokenCleanup = true;
+                    options.TokenCleanupInterval = 3600;
+                })
+
+                //.AddInMemoryIdentityResources(Config.IdentityResources)
+                //.AddInMemoryApiScopes(Config.ApiScopes)
+                //.AddInMemoryClients(Config.Clients)
                 .AddAspNetIdentity<ApplicationUser>();
 
-            // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
 
             services.AddAuthentication()
@@ -70,7 +90,7 @@ namespace IdentityServerAspNetIdentity
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            //await app.EnsureSeedData();
             app.UseStaticFiles();
 
             app.UseRouting();
