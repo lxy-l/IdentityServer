@@ -23,11 +23,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebJs", "WebJs\WebJs.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebTest", "WebTest\WebTest.csproj", "{6E65B9C0-0992-468E-8740-F4264E18D3F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenIddictServer", "OpenIddictServer\OpenIddictServer.csproj", "{F520E2DD-4373-4E94-AE48-3923CD7ADEE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenIddictServer", "OpenIddictServer\OpenIddictServer.csproj", "{F520E2DD-4373-4E94-AE48-3923CD7ADEE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenIddictClient", "OpenIddictClient\OpenIddictClient.csproj", "{B952B3A2-A023-4C14-83A5-2B61FD93D949}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenIddictClient", "OpenIddictClient\OpenIddictClient.csproj", "{B952B3A2-A023-4C14-83A5-2B61FD93D949}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenIddictServerAspNetIdentity", "OpenIddictServerAspNetIdentity\OpenIddictServerAspNetIdentity.csproj", "{62900CBB-18B5-4A9A-96F2-D900F4519318}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenIddictServerAspNetIdentity", "OpenIddictServerAspNetIdentity\OpenIddictServerAspNetIdentity.csproj", "{62900CBB-18B5-4A9A-96F2-D900F4519318}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityClientAspNet", "IdentityClientAspNet\IdentityClientAspNet.csproj", "{A403CB63-6F22-4A75-9F86-81EFF4761F0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityClientAspNet2", "IdentityClientAspNet2\IdentityClientAspNet2.csproj", "{2CDDCCF3-21B3-4EA3-92B5-0B6D292F6000}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +87,14 @@ Global
 		{62900CBB-18B5-4A9A-96F2-D900F4519318}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62900CBB-18B5-4A9A-96F2-D900F4519318}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62900CBB-18B5-4A9A-96F2-D900F4519318}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A403CB63-6F22-4A75-9F86-81EFF4761F0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A403CB63-6F22-4A75-9F86-81EFF4761F0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A403CB63-6F22-4A75-9F86-81EFF4761F0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A403CB63-6F22-4A75-9F86-81EFF4761F0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CDDCCF3-21B3-4EA3-92B5-0B6D292F6000}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CDDCCF3-21B3-4EA3-92B5-0B6D292F6000}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CDDCCF3-21B3-4EA3-92B5-0B6D292F6000}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CDDCCF3-21B3-4EA3-92B5-0B6D292F6000}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

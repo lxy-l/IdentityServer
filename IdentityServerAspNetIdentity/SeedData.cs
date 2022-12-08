@@ -44,7 +44,11 @@ namespace IdentityServerAspNetIdentity
 
             await CreateScopes();
 
+            await CreateApiResources();
+
             await CreateIdentityResources();
+
+            await context.SaveChangesAsync();
 
             async Task CreateAspNetUser()
             {
@@ -115,7 +119,7 @@ namespace IdentityServerAspNetIdentity
                 }
             }
 
-            await context.SaveChangesAsync();
+   
 
 
             async Task CreateClients()
@@ -136,6 +140,17 @@ namespace IdentityServerAspNetIdentity
                     foreach (var item in Config.ApiScopes)
                     {
                         await context.ApiScopes.AddAsync(item.ToEntity());
+                    }
+                }
+            }
+
+            async Task CreateApiResources()
+            {
+                if (!await context.ApiScopes.AnyAsync())
+                {
+                    foreach (var item in Config.ApiResources)
+                    {
+                        await context.ApiResources.AddAsync(item.ToEntity());
                     }
                 }
             }

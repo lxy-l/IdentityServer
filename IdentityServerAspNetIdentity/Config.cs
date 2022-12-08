@@ -2,68 +2,93 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using IdentityServer4.Models;
 using System.Collections.Generic;
+
+using IdentityServer4;
+using IdentityServer4.Models;
 
 namespace IdentityServerAspNetIdentity
 {
     public static class Config
     {
         public static IEnumerable<IdentityResource> IdentityResources =>
-                   new IdentityResource[]
-                   {
-                        new IdentityResources.OpenId(),
-                        new IdentityResources.Profile(),
-                   };
-
-        public static IEnumerable<ApiScope> ApiScopes =>
-            new ApiScope[]
+            new IdentityResource[]
             {
-                new ApiScope("scope1"),
-                new ApiScope("scope2"),
+                new IdentityResources.OpenId(),
+                new IdentityResources.Profile(),
+                new IdentityResources.Address(),
+                new IdentityResources.Email(),
+                new IdentityResources.Phone(),
             };
 
-        public static IEnumerable<Client> Clients =>
-            new Client[]
+        public static IEnumerable<ApiResource> ApiResources => new[]
+        {
+            //指定受保护的Api资源（AddJwtBearer： options.Audience = "WebApi";如果不使用要将ValidateAudience=false）
+            //能不能访问Api资源由Client AllowedScopes判断，Api内部权限由Api自己管理
+            new ApiResource("WebApi", "IdentityClientAspNet API")
             {
-                // m2m client credentials flow client
-                new Client
-                {
-                    ClientId = "m2m.client",
-                    ClientName = "Client Credentials Client",
+                Scopes = { "read", "write"}
+            }
+        };
+        public static IEnumerable<ApiScope> ApiScopes => new List<ApiScope>
+            {
+               new ApiScope(name: "read",    displayName: "读取"),
+               new ApiScope(name: "write", displayName: "写入"),
+               new ApiScope(name: "api1", displayName: "WebApi资源"),
+            };
 
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
-
-                    AllowedScopes = { "scope1" }
-                },
-
-                // interactive client using code flow + pkce
-                new Client
-                {
-                    ClientId = "interactive",
-                    ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
-
-                    AllowedGrantTypes = GrantTypes.Code,
-
-                    RedirectUris = { "https://localhost:44300/signin-oidc" },
-                    FrontChannelLogoutUri = "https://localhost:44300/signout-oidc",
-                    PostLogoutRedirectUris = { "https://localhost:44300/signout-callback-oidc" },
-
-                    AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "scope2" }
-                },
+        public static IEnumerable<Client> Clients => new Client[]
+            {
                  new Client
                 {
-                    ClientId = "pwd",
+                    ClientId = "Client",
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     ClientSecrets =
                     {
-                         new Secret("secret".Sha256())
+                        new Secret("secret".Sha256())
+                    },
+                    AllowOfflineAccess = true,//提供refresh_token
+                   AllowedScopes = { "api1" }
+                },
+                new Client
+                {
+                    ClientId = "Client1",
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                    AllowOfflineAccess = true,//提供refresh_token
+                    AllowedScopes = 
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "read", "write" 
+                    }
+                },
+                new Client
+                {
+                    ClientId = "Client2",
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
                     },
                     AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "scope2" }
-                }
+                    AllowedScopes = {  "openid", "profile" }
+                },
+                 new Client
+                {
+                    ClientId = "Client3",
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                    //AllowOfflineAccess = true,
+                    AllowedScopes = {  "openid", "profile","read" }
+                },
             };
     }
 }
