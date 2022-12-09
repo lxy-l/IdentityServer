@@ -1,6 +1,8 @@
 # IdentityServer 认证授权
 >用于学习OAuth2.0和OpenId Connect
->以及组件：IdentityServer4，OpenIddict
+>以及组件：IdentityServer4，OpenIddict  
+>$\color{red}{IdentityServer4不再维护升级}$   
+>可以参考我个人项目：https://github.com/lxy-l/IdentityServer7
 ---
 
 ## OAuth2.0 & OpenId Connect
